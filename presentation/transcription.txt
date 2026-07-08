@@ -1,0 +1,110 @@
+# Guide de présentation orale — 10 minutes
+### Mise en place d'un système de supervision réseau au sein de Mauripost
+
+---
+
+## Slide 1 — Page de titre 
+« Bonjour, je m'appelle Mamadou Abou Ba, étudiant en Licence Développement, Administration Internet et Intranet à la FST. Je vais vous présenter mon mémoire de fin d'études intitulé "Mise en place d'un système de supervision réseau au sein de Mauripost", réalisé sous la supervision du Pr. Ahmed Mohamed Lemine Mamoune et de Mr. Beyni Ould Maouloud. »
+
+---
+
+## Slide 2 — Plan de présentation
+« Ma présentation s'articule en six parties : d'abord le contexte et la problématique, puis l'état de l'art et le choix de la solution, ensuite l'architecture et la conception, les outils et technologies utilisés, la réalisation concrète du projet, et enfin la conclusion et les perspectives. »
+
+
+---
+
+## Slide 3 — Titre de section : Contexte 
+« Commençons par le contexte du projet, à savoir Mauripost. »
+
+---
+
+## Slide 4 — Présentation de Mauripost 
+« Mauripost est l'opérateur postal national mauritanien, créé par décret le 29 décembre 1999. Son réseau est composé de plusieurs bureaux de poste répartis sur l'ensemble du territoire mauritanien. Mauripost propose plusieurs services : le courrier et les colis via EMS, les comptes courants postaux et l'épargne (CCP), ainsi que le transfert d'argent avec le service Emana. C'est donc une infrastructure critique, géographiquement étendue, qui repose fortement sur son réseau informatique. »
+
+---
+
+## Slide 5 — Problématique & Objectifs 
+« Aujourd'hui, ce réseau ne dispose d'aucun système de supervision. Concrètement, cela veut dire : une absence totale de supervision centralisée, des pannes détectées tardivement — souvent signalées par les utilisateurs plutôt que détectées en amont —, un manque d'historique des performances, des risques importants de saturation des liens et des équipements, et des vulnérabilités de sécurité qui passent inaperçues.
+
+Face à ces limites, les objectifs de mon projet sont clairs : centraliser le monitoring de toute l'infrastructure, permettre une anticipation proactive des incidents plutôt que réactive, assurer un suivi continu des performances, et déclencher des alertes instantanées dès qu'un problème survient. »
+
+---
+
+## Slide 6 — Titre de section : État de l'art 
+« Voyons maintenant l'état de l'art et le choix de la solution technique. »
+
+---
+
+## Slide 7 — Comparaison des solutions de supervision 
+« Pour choisir l'outil adapté, j'ai comparé trois solutions reconnues : Nagios, Zabbix et Prometheus, sur plusieurs critères. Sur la découverte automatique des équipements, Zabbix est excellent, contre une découverte limitée pour Nagios et partielle pour Prometheus. Pour la supervision SNMP, essentielle dans un réseau comme celui de Mauripost, Zabbix l'intègre nativement, alors que Nagios nécessite un plugin et Prometheus un exporter. Zabbix propose aussi une interface web moderne et une riche bibliothèque de templates prêts à l'emploi.
+
+Au final, Zabbix a été retenu pour sa maturité, sa découverte automatique, ses templates intégrés, sa prise en charge native du SNMP, et surtout sa forte adéquation avec une infrastructure réseau traditionnelle comme celle de Mauripost. »
+
+---
+
+## Slide 8 — Présentation de Zabbix 
+« Zabbix est une solution de supervision open source. Elle permet la collecte de données, la définition de seuils d'alerte, la configuration d'alertes personnalisées, la génération de graphiques, l'utilisation de modèles — ou templates — et un système de permissions granulaire.
+
+Son architecture repose sur quatre composants clés : le serveur Zabbix qui centralise le traitement, une base de données pour le stockage, une interface web pour la visualisation, et des agents Zabbix installés sur les machines à superviser. »
+
+---
+
+## Slide 9 — Concepts & protocoles de supervision réseau 
+« La supervision réseau repose sur deux approches complémentaires. La supervision active, où le serveur interroge lui-même les équipements — par exemple via le ping ICMP pour vérifier la disponibilité, ou le SNMP polling pour interroger des compteurs et indicateurs. Et la supervision passive, où ce sont les équipements eux-mêmes qui envoient l'information, par exemple via des SNMP traps qui déclenchent des alertes, ou un agent installé localement qui remonte des données en continu. J'ai combiné ces deux approches dans mon architecture. »
+
+---
+
+## Slide 10 — Titre de section : Architecture & conception (~5 sec)
+« Passons maintenant à l'architecture et à la conception de la solution. »
+
+---
+
+## Slide 11 — Architecture Zabbix déployée 
+
+« Voici l'architecture que j'ai déployée chez Mauripost. Le serveur Zabbix central collecte les données depuis [les agents installés sur les serveurs / les équipements réseau interrogés en SNMP], les stocke dans la base de données, puis les rend accessibles via l'interface web. Cette architecture permet une supervision centralisée de l'ensemble du réseau depuis un point unique. »
+
+---
+
+## Slide 12 — Titre de section : Outils & technologies
+« Voyons à présent les outils et technologies utilisés pour la mise en œuvre. »
+
+---
+
+## Slide 13 — Stockage des données
+« Pour l'environnement de déploiement, j'ai utilisé VirtualBox. La distribution retenue est Ubuntu Server, choisie pour sa stabilité et sa compatibilité avec Zabbix. Le système d'exploitation héberge le serveur Zabbix ainsi que la base de données utilisée pour le stockage des historiques et des tendances de supervision. »
+
+*Remplacez les crochets par le contenu exact de votre slide (distribution, SGBD utilisé, etc.).*
+
+---
+
+## Slide 14 — Réalisation (Live) 
+« Je vais maintenant vous montrer concrètement le résultat de ce travail à travers une démonstration en direct. »
+
+1. « Voici le tableau de bord principal de Zabbix, avec une vue d'ensemble de l'état du réseau. »
+2. « On voit ici la liste des hôtes découverts automatiquement, avec leur statut. »
+3. « Voici un exemple de graphique de performance — par exemple la charge CPU ou le trafic réseau d'un équipement. »
+4. « Et voici la configuration d'une alerte : dès que le seuil est dépassé, une notification est envoyée automatiquement. »
+
+
+---
+
+## Slide 15 — Titre de section : Conclusion & perspectives 
+« Pour conclure, laissez-moi revenir sur le bilan de ce projet et ses perspectives d'évolution. »
+
+---
+
+## Slide 16 — Perspectives d'évolution & Conclusion 
+« Ce projet ouvre plusieurs perspectives d'évolution : l'extension de la supervision aux agences distantes sur tout le territoire, l'intégration d'un système IDS/IPS pour renforcer la sécurité, la mise en place d'actions correctives automatisées, et la mise en place d'un serveur de sauvegarde (backup) pour garantir la continuité de la supervision.
+
+En conclusion, ce travail a permis de doter Mauripost d'un système de supervision réseau centralisé, capable de détecter les pannes de manière proactive, de suivre les performances dans le temps, et de renforcer la fiabilité de son infrastructure critique. Je vous remercie de votre attention et reste à votre disposition pour vos questions. »
+
+---
+
+## Slide 17 — Fin / Questions (~5 sec)
+« Merci de votre attention, je suis prêt à répondre à vos questions. »
+
+---
+
+- La **slide 14 (démo live)** est le moment le plus à risque en termes de temps — préparez-la à l'avance et chronométrez-la séparément.
+- Prévoyez une marge de sécurité : viser 9 min à l'entraînement pour rester à 10 min le jour J avec le trac.
